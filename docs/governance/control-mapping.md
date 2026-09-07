@@ -6,8 +6,9 @@
 | No secrets in git | data-handling.md | `.gitignore` `.env`; `.env.example` placeholders |
 | No secrets or bodies in logs | data-handling.md | Audit line in `__init__.py`; emailer logs domain only |
 | Human review | human-oversight.md | Disclaimer in every email; `--dry-run` |
-| Model cannot invent URLs | system-card.md | URL allowlist in `digest.py` |
+| Model cannot invent URLs | system-card.md | URL allowlist in `digest.py`; `url_allowlist` eval check |
 | Fallback if model fails | human-oversight.md | Headline list without LLM |
+| Digest quality gates | system-card.md | `evaluation.py` + `--eval`; CI `eval.yml`; send blocked on critical fail |
 | Vendor list | vendor-inventory.md | This table plus config feeds |
 | Kill switch | incident-response.md | Disable GitHub Actions workflow; rotate secrets |
 | NIST functions | nist-ai-rmf-mapping.md | Documents + controls above |

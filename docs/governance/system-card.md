@@ -25,4 +25,9 @@ Internal CLI `ai-news-aggregator`: fetch public RSS → optional LLM digest → 
 
 ## Evaluation
 
-Operators should periodically dry-run and spot-check that highlights match source titles and that disclaimers appear. There is no automated factuality benchmark in this repo.
+Deterministic checks in `src/ai_news_aggregator/evaluation.py` run on every digest (including before SMTP send):
+
+- **Critical (block send):** every fetched item is dated and inside the lookback window; item count ≤ cap; disclaimer present; subject starts with `AI Governance`; digest URLs match the fetch and use `http(s)`.
+- **Warnings (logged, do not block):** digest titles overlap source headlines; at least half of entries look like governance/policy news.
+
+`uv run pytest` covers these rules with fixtures. `uv run ai-news-aggregator --eval` scores a live fetch. There is still no automated factuality benchmark; recipients must open source links.

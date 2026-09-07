@@ -25,6 +25,15 @@ Dry-run (no SMTP):
 uv run ai-news-aggregator --dry-run
 ```
 
+Evaluation (fetch + build + print pass/fail checks, no SMTP). Critical failures also block a real send:
+
+```bash
+uv run pytest
+uv run ai-news-aggregator --eval
+```
+
+`pytest` is offline (fixture RSS and sample digests). `--eval` hits live feeds like a normal run. GitHub Actions workflow **Eval** runs `pytest` on every push.
+
 ## Governance
 
 Compliance documents for this system (use policy, data handling, NIST AI RMF mapping, EU AI Act working assessment, official source links, and control mapping) are in [docs/governance/](docs/governance/README.md).
