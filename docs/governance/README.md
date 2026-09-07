@@ -12,7 +12,7 @@ It is **not** a substitute for legal sign-off, a DPIA, vendor DPAs, or your orga
 | [Data handling](data-handling.md) | What data is processed, stored, and logged |
 | [Vendor inventory](vendor-inventory.md) | Third parties and data leaving the environment |
 | [Human oversight](human-oversight.md) | Who reviews output; dry-run and fallback |
-| [System card](system-card.md) | Model, prompt intent, known limits |
+| [System card](system-card.md) | Model, prompt intent, known limits, evaluation gates |
 | [Incident response](incident-response.md) | How to shut off keys and the daily job |
 | [NIST AI RMF mapping](nist-ai-rmf-mapping.md) | GOVERN / MAP / MEASURE / MANAGE for this system |
 | [EU AI Act assessment](eu-ai-act-assessment.md) | Working classification and transparency steps |

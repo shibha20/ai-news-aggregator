@@ -64,7 +64,7 @@ def _fetch_feed(client: httpx.Client, feed: Feed, cutoff: datetime) -> list[Item
         if feed.keywords and not _matches_keywords(f"{title} {_text(getattr(entry, 'summary', ''))}", feed.keywords):
             continue
         published = _entry_datetime(entry)
-        if published is not None and published < cutoff:
+        if published is None or published < cutoff:
             continue
         items.append(
             Item(

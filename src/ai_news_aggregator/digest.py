@@ -8,7 +8,7 @@ from html import escape
 
 from openai import OpenAI
 
-from ai_news_aggregator.config import OPENAI_MODEL
+from ai_news_aggregator.config import LOOKBACK_HOURS, OPENAI_MODEL
 from ai_news_aggregator.governance import attach_disclaimer
 from ai_news_aggregator.sources import Item
 
@@ -34,6 +34,8 @@ class Digest:
     html: str
     text: str
     used_llm: bool
+    highlights: tuple[dict[str, str], ...] = ()
+    watch: tuple[dict[str, str], ...] = ()
 
 
 def build_digest(items: list[Item]) -> Digest:
@@ -83,7 +85,14 @@ def _llm_digest(items: list[Item]) -> Digest:
         _render_text(highlights, watch),
         used_llm=True,
     )
-    return Digest(subject=subject, html=html, text=text, used_llm=True)
+    return Digest(
+        subject=subject,
+        html=html,
+        text=text,
+        used_llm=True,
+        highlights=tuple(highlights),
+        watch=tuple(watch),
+    )
 
 
 def _fallback_digest(items: list[Item]) -> Digest:
@@ -101,12 +110,21 @@ def _fallback_digest(items: list[Item]) -> Digest:
         _render_text(highlights, []),
         used_llm=False,
     )
-    return Digest(subject=_default_subject(), html=html, text=text, used_llm=False)
+    return Digest(
+        subject=_default_subject(),
+        html=html,
+        text=text,
+        used_llm=False,
+        highlights=tuple(highlights),
+    )
 
 
 def _empty_digest() -> Digest:
-    subject = "AI Governance: no notable items in the last 24 hours"
-    body = "No recent AI governance stories were found in the configured feeds."
+    subject = f"AI Governance: no notable items in the last {LOOKBACK_HOURS} hours"
+    body = (
+        "No recent AI governance stories were found in the configured feeds "
+        f"for the last {LOOKBACK_HOURS} hours."
+    )
     html, text = attach_disclaimer(f"<p>{escape(body)}</p>", body, used_llm=False)
     return Digest(subject=subject, html=html, text=text, used_llm=False)
 

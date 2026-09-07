@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
-      - run: uv sync
+      - run: uv sync --no-dev
       - run: uv run ai-news-aggregator
         # Do not add debug flags that print email bodies or secrets.
         env:

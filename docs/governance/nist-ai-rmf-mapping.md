@@ -17,10 +17,11 @@ This maps **this digest agent** to NIST AI RMF 1.0 functions. It is a control na
 
 ## MEASURE
 
-- Audit log per run: item count, `used_llm`, `dry_run`, `sent` (no email body, no secrets).
-- URL allowlist against fetched items.
+- Audit log per run: item count, `used_llm`, `dry_run`, `sent`, `eval_passed` (no email body, no secrets).
+- Evaluation layer: URL allowlist, lookback/date checks, disclaimer, subject, http(s) links; warnings for groundedness and governance relevance.
+- CI: `.github/workflows/eval.yml` runs `pytest` on push.
 - Fallback path when the model fails.
-- Operators can `--dry-run` before enabling cron.
+- Operators can `--dry-run` or `--eval` before enabling cron.
 
 ## MANAGE
 
